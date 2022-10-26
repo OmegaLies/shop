@@ -4,10 +4,10 @@ require_relative "lib/product"
 require_relative "lib/book"
 require_relative "lib/film"
 
-leon = Film.new(label: "Леон", price: 290, amount: 9, director: "Люк Бессон", year: "1994")
+leon = Film.from_file('./data/films/01.txt')
 puts leon
 
-idiot = Book.new(label: "Идиот", price: 1500, amount: 10, author: "Федор Достоевский", genre: "роман")
+idiot = Book.from_file('./data/books/01.txt')
 puts idiot
 
 leon.price = 500
