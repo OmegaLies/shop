@@ -3,10 +3,9 @@
 class ProductCollection
   PRODUCT_TYPES = [
     {dir: 'films', class: Film},
-    {dir: 'books', class: Book}
+    {dir: 'books', class: Book},
+    {dir: 'drives', class: Drive}
   ]
-
-  attr_accessor :products
 
   def initialize(products = [])
     @products = products
@@ -24,8 +23,16 @@ class ProductCollection
     self.new(products)
   end
 
-  def to_a
-    @products
+  def empty?
+    @products.empty?
+  end
+
+  def to_s
+    result = @products.map.with_index(1) { |product, index| "#{index}. #{product.to_s}" }
+    <<HEREDOC
+#{result.join("\n")}
+0. Выход
+HEREDOC
   end
 
   def sort!(params)
@@ -39,5 +46,16 @@ class ProductCollection
     end
 
     @products.reverse! if params[:order] == :asc
+  end
+
+  def buy(choice)
+    result = [@products[choice - 1], (@products[choice - 1]).price]
+    unless (@products[choice - 1]).amount == 1
+      (@products[choice - 1]).amount -= 1
+    else
+      (@products[choice - 1]).amount = 0
+      @products.delete_at(choice - 1)
+    end
+    result
   end
 end
