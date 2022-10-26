@@ -3,16 +3,12 @@
 require_relative "lib/product"
 require_relative "lib/book"
 require_relative "lib/film"
+require_relative "lib/product_collection"
 
-leon = Film.from_file('./data/films/01.txt')
-puts leon
+collection = ProductCollection.from_dir("#{__dir__}/data")
 
-idiot = Book.from_file('./data/books/01.txt')
-puts idiot
+collection.sort!(by: :amount, order: :asc)
 
-leon.price = 500
-leon.amount = 5
-puts leon
-
-idiot.update(price: 1000, amount: 20)
-puts idiot
+collection.to_a.each do |product|
+  puts product
+end
