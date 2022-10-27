@@ -4,6 +4,7 @@ require_relative "lib/product"
 require_relative "lib/book"
 require_relative "lib/film"
 require_relative "lib/drive"
+require_relative "lib/basket"
 require_relative "lib/product_collection"
 
 collection = ProductCollection.from_dir("#{__dir__}/data")
@@ -16,12 +17,9 @@ puts collection
 user_choice = STDIN.gets.to_i
 puts
 
-buy_list = []
-full_price = 0
+buy_list = Basket.new
 until user_choice == 0 || collection.empty?
-  product = collection.buy(user_choice)
-  buy_list << product[0]
-  full_price += product[1]
+  collection.buy(user_choice, buy_list)
 
   puts "Что вы хотите приобрести?"
   puts
@@ -31,11 +29,7 @@ until user_choice == 0 || collection.empty?
 end
 
 unless buy_list.empty?
-  puts "Вы купили:"
-  puts
-  buy_list.each { |product| puts product}
-  puts
-  puts "С вас #{full_price} руб. Спасибо за покупки!"
+  puts buy_list
 else
   puts "Очень жаль, что вы ничего не выбрали. Заглядывайте еще!"
 end
