@@ -1,6 +1,6 @@
 # encoding: utf-8
 
-class Drive < Product
+class Disc < Product
   attr_accessor :title, :genre, :author
 
   def self.from_file(file_path)

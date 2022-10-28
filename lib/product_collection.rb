@@ -4,7 +4,7 @@ class ProductCollection
   PRODUCT_TYPES = [
     {dir: 'films', class: Film},
     {dir: 'books', class: Book},
-    {dir: 'drives', class: Drive}
+    {dir: 'drives', class: Disc}
   ]
 
   def self.from_dir(dir_path)
@@ -46,12 +46,16 @@ class ProductCollection
   end
 
   def buy(choice, basket)
-    basket << @products[choice - 1]
-    unless (@products[choice - 1]).amount == 1
-      (@products[choice - 1]).amount -= 1
-    else
-      (@products[choice - 1]).amount = 0
-      @products.delete_at(choice - 1)
+    if (1..@products.length).include?(choice)
+      basket << @products[choice - 1]
+      unless (@products[choice - 1]).amount == 1
+        (@products[choice - 1]).amount -= 1
+      else
+        (@products[choice - 1]).amount = 0
+        @products.delete_at(choice - 1)
+      end
+      return nil
     end
+    0
   end
 end
