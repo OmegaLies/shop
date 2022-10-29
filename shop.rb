@@ -20,13 +20,22 @@ until user_choice == 0 || collection.empty?
   puts collection
   user_choice = STDIN.gets.to_i
   puts
-  if user_choice != 0 && collection.buy(user_choice, buy_list) != nil
+  check_result = collection.check_choice(user_choice, buy_list)
+  if user_choice != 0 && check_result == 0
     puts "Неверный номер, попробуйте еще раз."
+  elsif check_result == 2
+    puts "Сейчас в корзине:"
+    puts
+    puts buy_list
+    puts
   end
 end
 
 unless buy_list.empty?
+  puts "Вы купили:"
+  puts
   puts buy_list
+  puts "Спасибо за покупки!"
 else
   puts "Очень жаль, что вы ничего не выбрали. Заглядывайте еще!"
 end

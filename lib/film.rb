@@ -25,6 +25,10 @@ class Film < Product
     "Фильм '#{@title}', #{@year}, реж. #{@director}, #{super}"
   end
 
+  def full_info
+    "Фильм '#{@title}', #{@year}, реж. #{@director}, #{super}"
+  end
+
   def update(params)
     super
     @title = params[:title] if params[:title]

@@ -27,6 +27,10 @@ class Disc < Product
     "Альбом #{@author} - '#{@title}', #{@genre}, #{@year}, #{super}"
   end
 
+  def full_info
+    "Альбом #{@author} - '#{@title}', #{@genre}, #{@year}, #{super}"
+  end
+
   def update(params)
     super
     @title = params[:title] if params[:title]

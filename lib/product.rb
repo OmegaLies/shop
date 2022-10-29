@@ -13,6 +13,10 @@ class Product
   end
 
   def to_s
+    "#{@price} руб."
+  end
+
+  def full_info
     "#{@price} руб. (осталось #{@amount})"
   end
 

@@ -28,9 +28,10 @@ class ProductCollection
   end
 
   def to_s
-    result = @products.map.with_index(1) { |product, index| "#{index}. #{product}" }
+    result = @products.map.with_index(1) { |product, index| "#{index}. #{product.full_info}" }
     <<~RESULT
       #{result.join("\n")}
+      #{@products.length + 1}. Список покупок
       0. Выход
     RESULT
   end
@@ -46,16 +47,23 @@ class ProductCollection
   end
 
   def buy(choice, basket)
-    if (1..@products.length).include?(choice)
-      basket << @products[choice - 1]
-      unless (@products[choice - 1]).amount == 1
-        (@products[choice - 1]).amount -= 1
-      else
-        (@products[choice - 1]).amount = 0
-        @products.delete_at(choice - 1)
-      end
-      return nil
+    basket << @products[choice - 1]
+    unless (@products[choice - 1]).amount == 1
+      (@products[choice - 1]).amount -= 1
+    else
+      (@products[choice - 1]).amount = 0
+      @products.delete_at(choice - 1)
     end
-    0
+    1
+  end
+
+  def check_choice(choice, basket)
+    if (1..@products.length).include?(choice)
+      buy(choice, basket)
+    elsif choice == @products.length + 1
+      2
+    else
+      0
+    end
   end
 end

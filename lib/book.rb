@@ -25,6 +25,10 @@ class Book < Product
     "Книга '#{@title}', #{@genre}, автор #{@author}, #{super}"
   end
 
+  def full_info
+    "Книга '#{@title}', #{@genre}, автор #{@author}, #{super}"
+  end
+
   def update(params)
     super
     @title = params[:title] if params[:title]

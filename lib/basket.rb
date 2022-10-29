@@ -3,7 +3,7 @@
 class Basket
   attr_accessor :products, :full_price
 
-  def initialize(products = [], full_price = 0)
+  def initialize(products = {}, full_price = 0)
     @products = products
     @full_price = full_price
   end
@@ -13,18 +13,20 @@ class Basket
   end
 
   def <<(product)
-    @products << product
+    if @products.include?(product)
+      @products[product] += 1
+    else
+      @products[product] = 1
+    end
     @full_price += product.price
   end
 
   def to_s
-    result = @products.map.with_index(1) { |product, index| "#{index}. #{product}" }
+    result = @products.map { |product| "#{product[1]}шт. - #{product[0]}" }
     <<~BASKET
-      Вы купили:
-      
       #{result.join("\n")}
       
-      С вас #{@full_price} руб. Спасибо за покупки!
+      К оплате #{@full_price} руб.
     BASKET
   end
 end
