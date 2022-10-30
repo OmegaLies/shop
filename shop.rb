@@ -20,22 +20,29 @@ until user_choice == 0 || collection.empty?
   puts collection
   user_choice = STDIN.gets.to_i
   puts
-  check_result = collection.check_choice(user_choice, buy_list)
-  if user_choice != 0 && check_result == 0
-    puts "Неверный номер, попробуйте еще раз."
-  elsif check_result == 2
+  if (1..collection.length).include?(user_choice)
+    buy_list << collection[user_choice - 1]
+    if (collection[user_choice - 1]).amount == 1
+      (collection[user_choice - 1]).amount = 0
+      collection.delete_at(user_choice - 1)
+    else
+      (collection[user_choice - 1]).amount -= 1
+    end
+  elsif user_choice == collection.length + 1
     puts "Сейчас в корзине:"
     puts
     puts buy_list
     puts
+  else
+    puts "Неверный номер, попробуйте еще раз."
   end
 end
 
-unless buy_list.empty?
+if buy_list.empty?
+  puts "Очень жаль, что вы ничего не выбрали. Заглядывайте еще!"
+else
   puts "Вы купили:"
   puts
   puts buy_list
   puts "Спасибо за покупки!"
-else
-  puts "Очень жаль, что вы ничего не выбрали. Заглядывайте еще!"
 end

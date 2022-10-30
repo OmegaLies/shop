@@ -7,6 +7,8 @@ class ProductCollection
     {dir: 'drives', class: Disc}
   ]
 
+  attr_accessor :products
+
   def self.from_dir(dir_path)
     products = []
 
@@ -27,6 +29,14 @@ class ProductCollection
     @products.empty?
   end
 
+  def length
+    @products.length
+  end
+
+  def [](index)
+    @products[index]
+  end
+
   def to_s
     result = @products.map.with_index(1) { |product, index| "#{index}. #{product.full_info}" }
     <<~RESULT
@@ -44,26 +54,5 @@ class ProductCollection
     end
 
     @products.reverse! if params[:order] == :asc
-  end
-
-  def buy(choice, basket)
-    basket << @products[choice - 1]
-    unless (@products[choice - 1]).amount == 1
-      (@products[choice - 1]).amount -= 1
-    else
-      (@products[choice - 1]).amount = 0
-      @products.delete_at(choice - 1)
-    end
-    1
-  end
-
-  def check_choice(choice, basket)
-    if (1..@products.length).include?(choice)
-      buy(choice, basket)
-    elsif choice == @products.length + 1
-      2
-    else
-      0
-    end
   end
 end
