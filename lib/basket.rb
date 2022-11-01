@@ -3,7 +3,7 @@
 class Basket
   attr_accessor :products, :full_price
 
-  def initialize(products = {}, full_price = 0)
+  def initialize(products = [], full_price = 0)
     @products = products
     @full_price = full_price
   end
@@ -13,16 +13,12 @@ class Basket
   end
 
   def <<(product)
-    if @products.include?(product)
-      @products[product] += 1
-    else
-      @products[product] = 1
-    end
+    @products << product
     @full_price += product.price
   end
 
   def to_s
-    result = @products.map { |product| "#{product[1]}шт. - #{product[0]}" }
+    result = @products.tally.map { |product, amount| "#{amount}шт. - #{product}" }
     <<~BASKET
       #{result.join("\n")}
       

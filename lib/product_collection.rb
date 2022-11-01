@@ -29,12 +29,16 @@ class ProductCollection
     @products.empty?
   end
 
-  def length
-    @products.length
+  def size
+    @products.size
   end
 
   def [](index)
     @products[index]
+  end
+
+  def delete(product)
+    @products.delete(product)
   end
 
   def to_s

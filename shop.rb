@@ -20,15 +20,16 @@ until user_choice == 0 || collection.empty?
   puts collection
   user_choice = STDIN.gets.to_i
   puts
-  if (1..collection.length).include?(user_choice)
-    buy_list << collection[user_choice - 1]
-    if (collection[user_choice - 1]).amount == 1
-      (collection[user_choice - 1]).amount = 0
-      collection.delete_at(user_choice - 1)
+  if (1..collection.size).include?(user_choice)
+    product = collection[user_choice - 1]
+    buy_list << product
+    if product.amount == 1
+      product.amount = 0
+      collection.delete(product)
     else
-      (collection[user_choice - 1]).amount -= 1
+      product.amount -= 1
     end
-  elsif user_choice == collection.length + 1
+  elsif user_choice == collection.size + 1
     puts "Сейчас в корзине:"
     puts
     puts buy_list
