@@ -34,7 +34,7 @@ until user_choice == 0 || collection.empty?
     puts
     puts buy_list
     puts
-  else
+  elsif user_choice != 0
     puts "Неверный номер, попробуйте еще раз."
   end
 end
