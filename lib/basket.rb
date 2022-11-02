@@ -1,11 +1,10 @@
 # encoding: utf-8
 
 class Basket
-  attr_accessor :products, :full_price
+  attr_accessor :products
 
-  def initialize(products = [], full_price = 0)
+  def initialize(products = [])
     @products = products
-    @full_price = full_price
   end
 
   def empty?
@@ -14,7 +13,10 @@ class Basket
 
   def <<(product)
     @products << product
-    @full_price += product.price
+  end
+
+  def full_price
+    @products.tally.map { |product, amount| amount * product.price }.sum
   end
 
   def to_s
@@ -22,7 +24,7 @@ class Basket
     <<~BASKET
       #{result.join("\n")}
       
-      К оплате #{@full_price} руб.
+      К оплате #{full_price} руб.
     BASKET
   end
 end

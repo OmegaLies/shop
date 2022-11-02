@@ -23,12 +23,8 @@ until user_choice == 0 || collection.empty?
   if (1..collection.size).include?(user_choice)
     product = collection[user_choice - 1]
     buy_list << product
-    if product.amount == 1
-      product.amount = 0
-      collection.delete(product)
-    else
-      product.amount -= 1
-    end
+    product.amount -= 1
+    collection.reject_absent!
   elsif user_choice == collection.size + 1
     puts "Сейчас в корзине:"
     puts

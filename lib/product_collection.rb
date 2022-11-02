@@ -37,9 +37,18 @@ class ProductCollection
     @products[index]
   end
 
-  def delete(product)
-    @products.delete(product)
+  def reject_absent!
+    @products.reject!(&:over?)
   end
+
+  # def check_amount(product_to_check)
+  #   product = @products.find {|prod| prod == product_to_check }
+  #   if product.amount == 1
+  #     @products.delete(product)
+  #   else
+  #     product.amount - 1
+  #   end
+  # end
 
   def to_s
     result = @products.map.with_index(1) { |product, index| "#{index}. #{product.full_info}" }

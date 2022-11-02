@@ -12,6 +12,10 @@ class Product
     @amount = params[:amount]
   end
 
+  def over?
+    @amount == 0
+  end
+
   def to_s
     "#{@price} руб."
   end
