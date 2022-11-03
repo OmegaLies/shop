@@ -16,7 +16,7 @@ class Basket
   end
 
   def full_price
-    @products.tally.map { |product, amount| amount * product.price }.sum
+    @products.map(&:price).sum
   end
 
   def to_s
