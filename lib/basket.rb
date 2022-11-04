@@ -16,7 +16,7 @@ class Basket
   end
 
   def full_price
-    @products.map(&:price).sum
+    @products.sum(&:price)
   end
 
   def to_s
